@@ -1,7 +1,7 @@
 /*
  * LBMChannelFlow-Dev
  *
- * LBM simulation of 2D flow through a channel with obstacles
+ * LBM simulation of 2D flow through a channel with solid obstacles
  *
  *  Created on: 17 mei 2017
  *      Author: dharrison
