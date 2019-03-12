@@ -18,7 +18,7 @@ void parameter_declaration()
 	Nx                 = 1290;
 	Ny                 = 1410;
 	ti                 = 0.0;
-	timesteps          = 60; //60000;
+	timesteps          = 60000; //for 60000 timesteps the sim runs appr 9 hrs;
 	time_interval_vids = 100;
 	time_interval_data = 1000; //implementation needs modification
 	min_timestep       = 0;
