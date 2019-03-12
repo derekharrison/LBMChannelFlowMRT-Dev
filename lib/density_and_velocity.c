@@ -6,7 +6,7 @@
  */
 
 
-#include "parameters.h"
+#include "../inc/parameters.h"
 
 
 void calculating_rho()

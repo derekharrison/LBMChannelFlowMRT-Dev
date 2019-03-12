@@ -6,8 +6,8 @@
  */
 
 
-#include "parameters.h"
-#include "export_functions.h"
+#include "../inc/parameters.h"
+#include "../inc/export_functions.h"
 #include <stdlib.h>
 
 

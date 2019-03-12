@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "types.h"
+#include "../inc/types.h"
 
 
 int     		 i, j, k, timestep;

@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "parameters.h"
+#include "../inc/parameters.h"
 
 
 void print_3D_doubles(FILE* pfile, int Nx, int Ny, int Nz, double*** f)

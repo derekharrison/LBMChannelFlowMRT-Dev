@@ -5,7 +5,7 @@
  *      Author: dharrison
  */
 
-#include "parameters.h"
+#include "../inc/parameters.h"
 
 
 void MRT_operator()

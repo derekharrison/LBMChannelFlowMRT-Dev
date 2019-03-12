@@ -7,7 +7,7 @@
 
 
 #include <stdlib.h>
-#include "parameters.h"
+#include "../inc/parameters.h"
 
 
 void mass_momentum_conservation()

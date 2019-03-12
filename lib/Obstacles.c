@@ -7,8 +7,8 @@
 
 
 #include <stdlib.h>
-#include "parameters.h"
-#include "obstacle_objects.h"
+#include "../inc/parameters.h"
+#include "../inc/obstacle_objects.h"
 
 
 void Obstacles()

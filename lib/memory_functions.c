@@ -7,7 +7,7 @@
 
 
 #include <stdlib.h>
-#include "types.h"
+#include "../inc/types.h"
 
 
 double*** Memory_alloc_3D(int Nx, int Ny, int Nz)

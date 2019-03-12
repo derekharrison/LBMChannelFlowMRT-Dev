@@ -9,7 +9,7 @@
 
 
 #include <math.h>
-#include "parameters.h"
+#include "../inc/parameters.h"
 
 
 void parameter_declaration()
@@ -25,7 +25,7 @@ void parameter_declaration()
 
 
 	/*Restart simulation by setting restart_sim to 1. Simulations can be restarted with data from previous simulation*/
-	restart_sim = 1;
+	restart_sim = 0;
 
 
     /*Lattice physical parameters*/

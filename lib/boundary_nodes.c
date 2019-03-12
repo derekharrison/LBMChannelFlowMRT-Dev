@@ -7,8 +7,8 @@
 
 
 #include <stdlib.h>
-#include "parameters.h"
-#include "memory_functions.h"
+#include "../inc/parameters.h"
+#include "../inc/memory_functions.h"
 
 
 void calculate_boundary_nodes()

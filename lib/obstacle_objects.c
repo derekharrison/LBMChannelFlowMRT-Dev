@@ -8,8 +8,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "parameters.h"
-#include "boundary_nodes.h"
+#include "../inc/parameters.h"
+#include "../inc/boundary_nodes.h"
 
 
 void rectangle(double x_coordinate, double y_coordinate, double width, double height)

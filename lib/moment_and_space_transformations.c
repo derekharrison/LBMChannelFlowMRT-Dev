@@ -6,8 +6,8 @@
  */
 
 
-#include "matrix_operations.h"
-#include "parameters.h"
+#include "../inc/matrix_operations.h"
+#include "../inc/parameters.h"
 #include <stdlib.h>
 
 

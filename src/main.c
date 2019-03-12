@@ -13,16 +13,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "Collision_and_streaming.h"
-#include "Stability_and_conservation_check.h"
-#include "density_and_velocity.h"
-#include "parameters.h"
-#include "export.h"
-#include "memory_management.h"
-#include "Obstacles.h"
-#include "boundary_nodes.h"
-#include "memory_functions.h"
-#include "moment_and_space_transformations.h"
+#include "../inc/Collision_and_streaming.h"
+#include "../inc/Stability_and_conservation_check.h"
+#include "../inc/density_and_velocity.h"
+#include "../inc/parameters.h"
+#include "../inc/export.h"
+#include "../inc/memory_management.h"
+#include "../inc/Obstacles.h"
+#include "../inc/boundary_nodes.h"
+#include "../inc/memory_functions.h"
+#include "../inc/moment_and_space_transformations.h"
 
 
 int main(int argc, char* argv[])

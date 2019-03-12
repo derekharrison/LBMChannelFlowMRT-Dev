@@ -6,8 +6,8 @@
  */
 
 
-#include "memory_functions.h"
-#include "parameters.h"
+#include "../inc/memory_functions.h"
+#include "../inc/parameters.h"
 
 
 void memory_allocate()

@@ -7,8 +7,8 @@
 
 
 #include <math.h>
-#include "parameters.h"
-#include "export.h"
+#include "../inc/parameters.h"
+#include "../inc/export.h"
 
 
 void initialization()

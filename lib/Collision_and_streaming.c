@@ -6,8 +6,8 @@
  */
 
 
-#include "parameters.h"
-#include "collision_operators.h"
+#include "../inc/parameters.h"
+#include "../inc/collision_operators.h"
 #include <math.h>
 #include <stdlib.h>
 
