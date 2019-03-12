@@ -18,7 +18,7 @@ void parameter_declaration()
 	Nx                 = 1290;
 	Ny                 = 1410;
 	ti                 = 0.0;
-	timesteps          = 60000;
+	timesteps          = 60; //60000;
 	time_interval_vids = 100;
 	time_interval_data = 1000; //implementation needs modification
 	min_timestep       = 0;
@@ -134,9 +134,9 @@ void parameter_declaration()
 
 
 	/*File names for data export*/
-	data_final_timestep = "LBM2DFluidChannelFlow_MRT_longdum.txt";
-	data_time_dependent = "DATAtimedepVonKarman_MRT_longdum.txt";
-	parameters 	        = "parameter_file_MRT_longdum.txt";
-	force_vec_results   = "force_x_results_MRT_longdum.txt";
-	data_store		    = "data_store_for_restart_sim_testdum.txt";
+	data_final_timestep = "data_final_timestep.txt";
+	data_time_dependent = "data_time_dependent.txt";
+	parameters 	        = "parameters.txt";
+	force_vec_results   = "force_vec_results.txt";
+	data_store		    = "data_store_for_sim_cont.txt";
 }

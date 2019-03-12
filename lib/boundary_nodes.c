@@ -280,20 +280,6 @@ void calculate_boundary_nodes()
 	number_b_nodes->type_11 = type_11_counter;
 	number_b_nodes->type_12 = type_12_counter;
 
-	printf("\n");
-	printf("total number of boundaries type 1 is %i\n", type_1_counter);
-	printf("total number of boundaries type 2 is %i\n", type_2_counter);
-	printf("total number of boundaries type 3 is %i\n", type_3_counter);
-	printf("total number of boundaries type 4 is %i\n", type_4_counter);
-	printf("total number of boundaries type 5 is %i\n", type_5_counter);
-	printf("total number of boundaries type 6 is %i\n", type_6_counter);
-	printf("total number of boundaries type 7 is %i\n", type_7_counter);
-	printf("total number of boundaries type 8 is %i\n", type_8_counter);
-	printf("total number of boundaries type 9 is %i\n", type_9_counter);
-	printf("total number of boundaries type 10 is %i\n", type_10_counter);
-	printf("total number of boundaries type 11 is %i\n", type_11_counter);
-	printf("total number of boundaries type 12 is %i\n", type_12_counter);
-
 
 	b_locations_type_1  = (b_location *) realloc(b_locations_type_1, sizeof(b_location) * type_1_counter);
 	b_locations_type_2  = (b_location *) realloc(b_locations_type_2, sizeof(b_location) * type_2_counter);
@@ -579,20 +565,6 @@ void calculate_boundary_nodes_ind_part(int nx_low, int nx_high, int ny_low, int 
 	boundary_locations->part_number[partnumber].boundary_type[9].number_of_boundaries  = type_10_counter;
 	boundary_locations->part_number[partnumber].boundary_type[10].number_of_boundaries = type_11_counter;
 	boundary_locations->part_number[partnumber].boundary_type[11].number_of_boundaries = type_12_counter;
-
-	printf("\n");
-	printf("number of boundaries type 1 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[0].number_of_boundaries);
-	printf("number of boundaries type 2 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[1].number_of_boundaries);
-	printf("number of boundaries type 3 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[2].number_of_boundaries);
-	printf("number of boundaries type 4 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[3].number_of_boundaries);
-	printf("number of boundaries type 5 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[4].number_of_boundaries);
-	printf("number of boundaries type 6 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[5].number_of_boundaries);
-	printf("number of boundaries type 7 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[6].number_of_boundaries);
-	printf("number of boundaries type 8 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[7].number_of_boundaries);
-	printf("number of boundaries type 9 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[8].number_of_boundaries);
-	printf("number of boundaries type 10 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[9].number_of_boundaries);
-	printf("number of boundaries type 11 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[10].number_of_boundaries);
-	printf("number of boundaries type 12 obstacle %i is %i\n", partnumber, boundary_locations->part_number[partnumber].boundary_type[11].number_of_boundaries);
 
 
 	Realloc_boundary_location_struct(boundary_locations, partnumber, 0, type_1_counter);

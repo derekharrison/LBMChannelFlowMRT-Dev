@@ -29,10 +29,6 @@ int main(int argc, char* argv[])
 {
 	begin = clock();
 
-
-	printf("Start preprocessing\n");
-
-
 	/*Declaring parameters*/
 	parameter_declaration();
 
@@ -69,9 +65,6 @@ int main(int argc, char* argv[])
 	{
 		moment_transformation_set_up_gram_schmidt();
 	}
-
-
-	printf("Start LBM iterations\n");
 
 
 	/*Performing LBM calculations*/
@@ -140,9 +133,6 @@ int main(int argc, char* argv[])
 
 		/*Export restart data during simulation in case of simulation abort*/
 		export_data_for_restart_during_sim(data_store_for_restart);
-
-
-		printf("t: %i\n", timestep);
 
 	}
 
