@@ -27,172 +27,172 @@
 
 int main(int argc, char* argv[])
 {
-	begin = clock();
+    begin = clock();
 
-	/*Declaring parameters*/
-	parameter_declaration();
-
-
-	/*Allocating memory*/
-	memory_allocate();
+    /*Declaring parameters*/
+    parameter_declaration();
 
 
-	/*Initialization*/
-	initialization();
+    /*Allocating memory*/
+    memory_allocate();
 
 
-	/*Creating files for data export*/
-	open_files();
+    /*Initialization*/
+    initialization();
 
 
-	/*Placing obstacles*/
-	if(obstacle_present)
-	{
-		Obstacles();
-	}
+    /*Creating files for data export*/
+    open_files();
 
 
-	/*Calculating boundary nodes*/
-	calculate_boundary_nodes();
+    /*Placing obstacles*/
+    if(obstacle_present)
+    {
+        Obstacles();
+    }
 
 
-	/*Setting up transformation matrices for MRT*/
-	if(mapping_set_up_switch)
-	{
-		moment_transformation_set_up_hermite();
-	}
-	else
-	{
-		moment_transformation_set_up_gram_schmidt();
-	}
+    /*Calculating boundary nodes*/
+    calculate_boundary_nodes();
 
 
-	/*Performing LBM calculations*/
-	for(timestep = 0; timestep < timesteps; ++timestep)
-	{
-		/*Calculating equilibrium*/
-		Calculate_equilibrium();
+    /*Setting up transformation matrices for MRT*/
+    if(mapping_set_up_switch)
+    {
+        moment_transformation_set_up_hermite();
+    }
+    else
+    {
+        moment_transformation_set_up_gram_schmidt();
+    }
 
 
-		/*Collision step*/
-		Calculate_collision();
+    /*Performing LBM calculations*/
+    for(timestep = 0; timestep < timesteps; ++timestep)
+    {
+        /*Calculating equilibrium*/
+        Calculate_equilibrium();
 
 
-		/*Streaming step central nodes*/
-		streaming_internal_nodes();
+        /*Collision step*/
+        Calculate_collision();
 
 
-		/*Streaming boundary nodes*/
-		streaming_boundaries();
+        /*Streaming step central nodes*/
+        streaming_internal_nodes();
 
 
-		/*Calculating rho field*/
-		calculating_rho();
+        /*Streaming boundary nodes*/
+        streaming_boundaries();
 
 
-		/*Calculating Ux field*/
-		calculating_Ux();
+        /*Calculating rho field*/
+        calculating_rho();
 
 
-		/*Calculating Uy field*/
-		calculating_Uy();
+        /*Calculating Ux field*/
+        calculating_Ux();
 
 
-		/*Calculating vorticity field*/
-		vorticity();
+        /*Calculating Uy field*/
+        calculating_Uy();
 
 
-		/*Stability probe*/
-		stability_probe();
+        /*Calculating vorticity field*/
+        vorticity();
 
 
-		/*Check mass and momentum conservation*/
-		if(check_mass_momentum)
-		{
-			mass_momentum_conservation();
-		}
+        /*Stability probe*/
+        stability_probe();
 
 
-		/*Setting nonnegative equilibrium flags*/
-		if(nonneg_stab_check)
-		{
-			set_stability_flags();
-		}
+        /*Check mass and momentum conservation*/
+        if(check_mass_momentum)
+        {
+            mass_momentum_conservation();
+        }
 
 
-		/*Exporting time dependent results at specified intervals*/
-		if(store_limited_time_dep_data)
-		{
-			export_time_dep_data_limited(datafile, Nx_low, Nx_high, Ny_low, Ny_high);
-		}
-		else
-		{
-			export_time_dep_data(datafile);
-		}
+        /*Setting nonnegative equilibrium flags*/
+        if(nonneg_stab_check)
+        {
+            set_stability_flags();
+        }
 
 
-		/*Export restart data during simulation in case of simulation abort*/
-		export_data_for_restart_during_sim(data_store_for_restart);
-
-	}
-
-
-	/*Exporting data at final timestep*/
-	export_final_data(pfile);
-
-
-	/*Exporting force results*/
-	if(solid_boundary_stream_switch)
-	{
-		export_force_x_results_ind_part(force_res);
-	}
-	else
-	{
-		export_force_x_results(force_res);
-	}
+        /*Exporting time dependent results at specified intervals*/
+        if(store_limited_time_dep_data)
+        {
+            export_time_dep_data_limited(datafile, Nx_low, Nx_high, Ny_low, Ny_high);
+        }
+        else
+        {
+            export_time_dep_data(datafile);
+        }
 
 
-	/*Exporting data for simulation restart*/
-	export_data_for_restart(data_store_for_restart);
+        /*Export restart data during simulation in case of simulation abort*/
+        export_data_for_restart_during_sim(data_store_for_restart);
+
+    }
 
 
-	/*Exporting parameters*/
-	if(store_limited_time_dep_data)
-	{
-		export_parameters_limited(param_file);
-	}
-	else
-	{
-		export_parameters(param_file);
-	}
+    /*Exporting data at final timestep*/
+    export_final_data(pfile);
 
 
-	/*Close files*/
-	close_files();
+    /*Exporting force results*/
+    if(solid_boundary_stream_switch)
+    {
+        export_force_x_results_ind_part(force_res);
+    }
+    else
+    {
+        export_force_x_results(force_res);
+    }
 
 
-	/*Deallocating memory*/
-	memory_deallocate();
+    /*Exporting data for simulation restart*/
+    export_data_for_restart(data_store_for_restart);
 
 
-	end 		= clock();
-	time_spent 	= (double)(end - begin) / CLOCKS_PER_SEC;
+    /*Exporting parameters*/
+    if(store_limited_time_dep_data)
+    {
+        export_parameters_limited(param_file);
+    }
+    else
+    {
+        export_parameters(param_file);
+    }
 
 
-	printf("Run Time: %f\n"			 , time_spent);
-	printf("particle_number: %i\n"   , particle_number);
-	printf("tfinal: %f\n"			 , tfinal);
-	printf("average velocity %f\n"	 , avg_vel);
-	printf("kinematic viscosity %f\n", vkin);
-	printf("tau %f\n"				 , tau);
-	printf("omega_min: %f\n"		 , omega_min);
+    /*Close files*/
+    close_files();
 
-	if(MRT_TRT_BGK_switch == 2)
-	{
-		printf("kinematic shear viscosity MRT: %f\n" , v_shear);
-		printf("kinematic bulk viscosity MRT: %f\n"  , v_bulk);
-		printf("kinematic bulk viscosity real: %E\n" , Cvkin * v_bulk);
-	}
 
-	return 0;
+    /*Deallocating memory*/
+    memory_deallocate();
+
+
+    end         = clock();
+    time_spent     = (double)(end - begin) / CLOCKS_PER_SEC;
+
+
+    printf("Run Time: %f\n"             , time_spent);
+    printf("particle_number: %i\n"   , particle_number);
+    printf("tfinal: %f\n"             , tfinal);
+    printf("average velocity %f\n"     , avg_vel);
+    printf("kinematic viscosity %f\n", vkin);
+    printf("tau %f\n"                 , tau);
+    printf("omega_min: %f\n"         , omega_min);
+
+    if(MRT_TRT_BGK_switch == 2)
+    {
+        printf("kinematic shear viscosity MRT: %f\n" , v_shear);
+        printf("kinematic bulk viscosity MRT: %f\n"  , v_bulk);
+        printf("kinematic bulk viscosity real: %E\n" , Cvkin * v_bulk);
+    }
+
+    return 0;
 }
