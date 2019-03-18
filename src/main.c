@@ -126,9 +126,8 @@ int main(int argc, char* argv[])
             export_time_dep_data(datafile);
         }
 
-
-        /*Export restart data during simulation in case of simulation abort*/
-        export_data_for_restart_during_sim(data_store_for_restart);
+        /*Exporting data for simulation restart*/
+        export_data_for_restart(data_store_for_restart);
 
 
         /*Temporary mechanism for tracking simulation progress*/
@@ -150,10 +149,6 @@ int main(int argc, char* argv[])
     {
         export_force_x_results(force_res);
     }
-
-
-    /*Exporting data for simulation restart*/
-    export_data_for_restart(data_store_for_restart);
 
 
     /*Exporting parameters*/

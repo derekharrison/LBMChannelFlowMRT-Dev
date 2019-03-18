@@ -9,7 +9,6 @@
 #define EXPORT_H_
 
 void export_data_for_restart(FILE* data_store_for_restart);
-void export_data_for_restart_during_sim(FILE* data_store_for_restart);
 void read_data_for_restart(FILE* data_store_for_restart);
 
 void export_time_dep_data(FILE* datafile);

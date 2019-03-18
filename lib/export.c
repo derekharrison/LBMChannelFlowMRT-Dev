@@ -36,35 +36,6 @@ void export_data_for_restart(FILE* data_store_for_restart)
 }
 
 
-void export_data_for_restart_during_sim(FILE* data_store_for_restart)
-{
-
-    if((timestep % time_interval_data) == 0)
-    {
-        data_store_for_restart = fopen(data_store, "w");
-
-        if(data_store_for_restart != NULL)
-        {
-        /*Export Ux, Uy, rho, fk and fprop data*/
-        write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
-        write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
-        write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
-
-        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
-        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
-        }
-        else
-        {
-            printf("could not open %s\n", data_store);
-            exit(10);
-        }
-
-        fclose(data_store_for_restart);
-    }
-
-}
-
-
 void read_data_for_restart(FILE* data_store_for_restart)
 {
     data_store_for_restart = fopen(data_store, "r");
@@ -95,7 +66,12 @@ void export_time_dep_data(FILE* datafile)
 
     if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        datafile = fopen(data_time_dependent, "w");
+        char file_name_complete[20];
+        char* file_name = data_time_dependent;
+
+        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+
+        datafile = fopen(file_name_complete, "w");
 
         if(datafile != NULL)
         {
@@ -126,7 +102,12 @@ void export_time_dep_data_limited(FILE* datafile, int Nx_low, int Nx_high, int N
 
     if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        datafile = fopen(data_time_dependent, "w");
+        char file_name_complete[20];
+        char* file_name = data_time_dependent;
+
+        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+
+        datafile = fopen(file_name_complete, "w");
 
         if(datafile != NULL)
         {
