@@ -11,16 +11,6 @@
 #include <stdlib.h>
 
 
-void open_files()
-{
-    pfile                    = fopen(data_final_timestep, "w");
-    datafile                = fopen(data_time_dependent, "w");
-    param_file                = fopen(parameters, "w");
-    force_res                = fopen(force_vec_results, "w");
-
-}
-
-
 void export_data_for_restart(FILE* data_store_for_restart)
 {
     data_store_for_restart = fopen(data_store, "w");
@@ -48,28 +38,29 @@ void export_data_for_restart(FILE* data_store_for_restart)
 
 void export_data_for_restart_during_sim(FILE* data_store_for_restart)
 {
-    data_store_for_restart = fopen(data_store, "w");
 
-    if(data_store_for_restart != NULL)
+    if((timestep % time_interval_data) == 0)
     {
-        if((timestep % time_interval_data) == 0)
+        data_store_for_restart = fopen(data_store, "w");
+
+        if(data_store_for_restart != NULL)
         {
-            /*Export Ux, Uy, rho, fk and fprop data*/
-            write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
-            write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
-            write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
+        /*Export Ux, Uy, rho, fk and fprop data*/
+        write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
+        write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
+        write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
 
-            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
-            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
+        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
+        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
         }
-    }
-    else
-    {
-        printf("could not open %s\n", data_store);
-        exit(10);
-    }
+        else
+        {
+            printf("could not open %s\n", data_store);
+            exit(10);
+        }
 
-    fclose(data_store_for_restart);
+        fclose(data_store_for_restart);
+    }
 
 }
 
@@ -101,25 +92,30 @@ void read_data_for_restart(FILE* data_store_for_restart)
 
 void export_time_dep_data(FILE* datafile)
 {
-    if (datafile != NULL)
+
+    if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
+        datafile = fopen(data_time_dependent, "w");
+
+        if(datafile != NULL)
         {
-            for(j = Ny - 1;j >= 0 ; --j)
-                for(i = 0;i < Nx; ++i)
-                {
-                    fprintf(datafile,"%f    ", i*dx + 0.5*dx);
-                    fprintf(datafile,"%f    ", j*dx + 0.5*dx);
-                    fprintf(datafile,"%f    ", Ux[i][j]);
-                    fprintf(datafile,"%f    ", Uy[i][j]);
-                    fprintf(datafile,"%f\n", vort_field[i][j]);
-                }
+        for(j = Ny - 1;j >= 0 ; --j)
+            for(i = 0;i < Nx; ++i)
+            {
+                fprintf(datafile,"%f    ", i*dx + 0.5*dx);
+                fprintf(datafile,"%f    ", j*dx + 0.5*dx);
+                fprintf(datafile,"%f    ", Ux[i][j]);
+                fprintf(datafile,"%f    ", Uy[i][j]);
+                fprintf(datafile,"%f\n", vort_field[i][j]);
+            }
         }
-    }
-    else
-    {
-        printf("could not open %s", data_time_dependent);
-        exit(10);
+        else
+        {
+            printf("could not open %s", data_time_dependent);
+            exit(10);
+        }
+
+        fclose(datafile);
     }
 
 }
@@ -127,9 +123,12 @@ void export_time_dep_data(FILE* datafile)
 
 void export_time_dep_data_limited(FILE* datafile, int Nx_low, int Nx_high, int Ny_low, int Ny_high)
 {
-    if (datafile != NULL)
+
+    if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
+        datafile = fopen(data_time_dependent, "w");
+
+        if(datafile != NULL)
         {
             for(j = Ny_high - 1;j >= Ny_low ; --j)
                 for(i = Nx_low;i < Nx_high; ++i)
@@ -141,11 +140,13 @@ void export_time_dep_data_limited(FILE* datafile, int Nx_low, int Nx_high, int N
                     fprintf(datafile,"%f\n", vort_field[i][j]);
                 }
         }
-    }
-    else
-    {
-        printf("could not open %s", data_time_dependent);
-        exit(10);
+        else
+        {
+            printf("Could not open file %s\n", data_time_dependent);
+            exit(10);
+        }
+
+        fclose(datafile);
     }
 
 }
@@ -154,6 +155,8 @@ void export_time_dep_data_limited(FILE* datafile, int Nx_low, int Nx_high, int N
 void export_parameters(FILE* param_file)
 {
     max_velocity_and_vorticity();
+
+    param_file = fopen(parameters, "w");
 
     if (param_file != NULL)
     {
@@ -174,12 +177,16 @@ void export_parameters(FILE* param_file)
         exit(10);
     }
 
+    fclose(param_file);
+
 }
 
 
 void export_parameters_limited(FILE* param_file)
 {
     max_velocity_and_vorticity();
+
+    param_file = fopen(parameters, "w");
 
     if (param_file != NULL)
     {
@@ -200,12 +207,16 @@ void export_parameters_limited(FILE* param_file)
         exit(10);
     }
 
+    fclose(param_file);
+
 }
 
 
 void export_force_x_results(FILE* force_res)
 {
     int t;
+
+    force_res  = fopen(force_vec_results, "w");
 
     if (force_res != NULL)
     {
@@ -220,12 +231,16 @@ void export_force_x_results(FILE* force_res)
         exit(10);
     }
 
+    fclose(force_res);
+
 }
 
 
 void export_force_x_results_ind_part(FILE* force_res)
 {
     int n, t;
+
+    force_res  = fopen(force_vec_results, "w");
 
     if (force_res != NULL)
     {
@@ -244,12 +259,17 @@ void export_force_x_results_ind_part(FILE* force_res)
         exit(10);
     }
 
+    fclose(force_res);
+
 }
 
 
 void export_final_data(FILE* pfile)
 {
     /*Exporting data to text*/
+
+    pfile      = fopen(data_final_timestep, "w");
+
     if(pfile != NULL)
     {
         fprintf(pfile,"\n\nDensity rho\n");
@@ -319,6 +339,8 @@ void export_final_data(FILE* pfile)
         exit(10);
     }
 
+    fclose(pfile);
+
 }
 
 
@@ -345,15 +367,5 @@ void progress_track_temp()
 
         fclose(file);
     }
-
-}
-
-
-void close_files()
-{
-    fclose(datafile);
-    fclose(pfile);
-    fclose(param_file);
-    fclose(force_res);
 
 }

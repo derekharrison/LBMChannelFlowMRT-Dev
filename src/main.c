@@ -41,10 +41,6 @@ int main(int argc, char* argv[])
     initialization();
 
 
-    /*Creating files for data export*/
-    open_files();
-
-
     /*Placing obstacles*/
     if(obstacle_present)
     {
@@ -169,10 +165,6 @@ int main(int argc, char* argv[])
     {
         export_parameters(param_file);
     }
-
-
-    /*Close files*/
-    close_files();
 
 
     /*Deallocating memory*/

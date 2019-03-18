@@ -18,7 +18,7 @@ void parameter_declaration()
     Nx                 = 1290;
     Ny                 = 1410;
     ti                 = 0.0;
-    timesteps          = 5000;
+    timesteps          = 2000;
     time_interval_vids = 100;
     time_interval_data = 1000;
     min_timestep       = 0;

@@ -133,7 +133,7 @@ anim = manimation.FuncAnimation(fig, animate, frames=timesteps-1, repeat=False)
 
 print("Done Animation, start saving")
 
-anim.save('Sim_Vid_test_Re100longMAIN.mp4',
+anim.save('Sim_Vid_test_3.mp4',
           writer=writer, dpi=200)
     
 print("--- %s seconds ---" % (time.time() - start_time))

@@ -8,8 +8,6 @@
 #ifndef EXPORT_H_
 #define EXPORT_H_
 
-void open_files();
-
 void export_data_for_restart(FILE* data_store_for_restart);
 void export_data_for_restart_during_sim(FILE* data_store_for_restart);
 void read_data_for_restart(FILE* data_store_for_restart);
@@ -25,7 +23,5 @@ void export_force_x_results_ind_part(FILE* force_res);
 
 void export_final_data(FILE* pfile);
 void progress_track_temp();
-
-void close_files();
 
 #endif /* EXPORT_H_ */
