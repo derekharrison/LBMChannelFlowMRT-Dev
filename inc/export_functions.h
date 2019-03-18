@@ -8,9 +8,9 @@
 #ifndef EXPORT_FUNCTIONS_H_
 #define EXPORT_FUNCTIONS_H_
 
-void print_3D_doubles(FILE* pfile, int Nx, int Ny, int Nz, double*** f);
+void write_3D_doubles(FILE* pfile, int Nx, int Ny, int Nz, double*** f);
 void read_3D_doubles(FILE* pfile, int Nx, int Ny, int Nz, double*** f);
-void print_2D_doubles(FILE* pfile, int Nx, int Ny, double** f);
+void write_2D_doubles(FILE* pfile, int Nx, int Ny, double** f);
 void read_2D_doubles(FILE* pfile, int Nx, int Ny, double** f);
 void print_2D_int(FILE* pfile, int Nx, int Ny, int** f);
 void force_calculations(FILE* pfile);

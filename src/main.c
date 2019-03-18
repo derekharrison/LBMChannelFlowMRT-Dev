@@ -134,6 +134,10 @@ int main(int argc, char* argv[])
         /*Export restart data during simulation in case of simulation abort*/
         export_data_for_restart_during_sim(data_store_for_restart);
 
+
+        /*Temporary mechanism for tracking simulation progress*/
+        progress_track_temp();
+
     }
 
 

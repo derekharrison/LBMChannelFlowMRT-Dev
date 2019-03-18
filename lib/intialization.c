@@ -112,13 +112,13 @@ void initialization()
     }
 
 
-    /*Initializing inlet velocity for percscribed inlet velocity condition*/
+    /*Initializing inlet velocity for prescribed inlet velocity condition*/
     for(j = 0; j < Ny; ++j)
     {
         //inlet_velocity[j] = 0.25 * 4 * (Ly[j] / (Ny * dx) - Ly[j] * Ly[j] / (Ny * dx * Ny * dx));
         if(inlet_anti_bb)
         {
-            inlet_velocity[j] = 0.0;//(0.5 / vkin) * ((rhoi - rhoo) / (Nx * dx)) * (Ny * dx * Ly[j] - Ly[j] * Ly[j]) / 3.0;
+            inlet_velocity[j] = (0.5 / vkin) * ((rhoi - rhoo) / (Nx * dx)) * (Ny * dx * Ly[j] - Ly[j] * Ly[j]) / 3.0;
         }
         else if(inlet_wetnode && wet_node)
         {

@@ -24,6 +24,7 @@ void export_force_x_results(FILE* force_res);
 void export_force_x_results_ind_part(FILE* force_res);
 
 void export_final_data(FILE* pfile);
+void progress_track_temp();
 
 void close_files();
 

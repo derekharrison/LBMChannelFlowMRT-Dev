@@ -28,12 +28,12 @@ void export_data_for_restart(FILE* data_store_for_restart)
     if(data_store_for_restart != NULL)
     {
         /*Export Ux, Uy, rho, fk and fprop data*/
-        print_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
-        print_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
-        print_2D_doubles(data_store_for_restart, Nx, Ny, rho);
+        write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
+        write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
+        write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
 
-        print_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
-        print_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
+        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
+        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
     }
     else
     {
@@ -55,12 +55,12 @@ void export_data_for_restart_during_sim(FILE* data_store_for_restart)
         if((timestep % time_interval_data) == 0)
         {
             /*Export Ux, Uy, rho, fk and fprop data*/
-            print_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
-            print_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
-            print_2D_doubles(data_store_for_restart, Nx, Ny, rho);
+            write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
+            write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
+            write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
 
-            print_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
-            print_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
+            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
+            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
         }
     }
     else
@@ -253,7 +253,7 @@ void export_final_data(FILE* pfile)
     if(pfile != NULL)
     {
         fprintf(pfile,"\n\nDensity rho\n");
-        print_2D_doubles(pfile, Nx, Ny, rho);
+        write_2D_doubles(pfile, Nx, Ny, rho);
 
         fprintf(pfile,"\n\nForce calculations\n");
         force_calculations(pfile);
@@ -265,19 +265,19 @@ void export_final_data(FILE* pfile)
         compare_analytical_solution_couette(pfile, Nx, Ny, Ux);
 
         fprintf(pfile,"\n\nUx\n");
-        print_2D_doubles(pfile, Nx, Ny, Ux);
+        write_2D_doubles(pfile, Nx, Ny, Ux);
 
         fprintf(pfile,"\n\nUy\n");
-        print_2D_doubles(pfile, Nx, Ny, Uy);
+        write_2D_doubles(pfile, Nx, Ny, Uy);
 
         fprintf(pfile,"\n\nVorticity\n");
-        print_2D_doubles(pfile, Nx, Ny, vort_field);
+        write_2D_doubles(pfile, Nx, Ny, vort_field);
 
         fprintf(pfile,"\n\nX\n");
-        print_2D_doubles(pfile, Nx, Ny, X_coordinates);
+        write_2D_doubles(pfile, Nx, Ny, X_coordinates);
 
         fprintf(pfile,"\n\nY\n");
-        print_2D_doubles(pfile, Nx, Ny, Y_coordinates);
+        write_2D_doubles(pfile, Nx, Ny, Y_coordinates);
 
         fprintf(pfile,"\n\nfk(:,:,0)\n");
         print_2D_map_of_3D_doubles(pfile, Nx, Ny, 0, fk);
@@ -286,30 +286,30 @@ void export_final_data(FILE* pfile)
         print_2D_int(pfile, Nx, Ny, solid_flags);
 
         fprintf(pfile,"\n\nUx real\n");
-        print_2D_doubles(pfile, Nx, Ny, Ux_real);
+        write_2D_doubles(pfile, Nx, Ny, Ux_real);
 
         fprintf(pfile,"\n\nUy real\n");
-        print_2D_doubles(pfile, Nx, Ny, Uy_real);
+        write_2D_doubles(pfile, Nx, Ny, Uy_real);
 
         fprintf(pfile,"\n\ndensity real\n");
-        print_2D_doubles(pfile, Nx, Ny, rho_real);
+        write_2D_doubles(pfile, Nx, Ny, rho_real);
 
         if(check_mass_momentum)
         {
             fprintf(pfile,"\n\nMass Conservation Check\n");
-            print_2D_doubles(pfile, Nx, Ny, mass_cons_check);
+            write_2D_doubles(pfile, Nx, Ny, mass_cons_check);
 
             fprintf(pfile,"\n\nMomentum x Conservation Check\n");
-            print_2D_doubles(pfile, Nx, Ny, momentumx_cons);
+            write_2D_doubles(pfile, Nx, Ny, momentumx_cons);
 
             fprintf(pfile,"\n\nMomentum y Conservation Check\n");
-            print_2D_doubles(pfile, Nx, Ny, momentumy_cons);
+            write_2D_doubles(pfile, Nx, Ny, momentumy_cons);
         }
 
         if(nonneg_stab_check)
         {
             fprintf(pfile,"\n\nNonnegative feq stability check\n");
-            print_2D_doubles(pfile, Nx, Ny, feqfl);
+            write_2D_doubles(pfile, Nx, Ny, feqfl);
         }
 
     }
@@ -317,6 +317,33 @@ void export_final_data(FILE* pfile)
     {
         printf("could not open %s", data_final_timestep);
         exit(10);
+    }
+
+}
+
+
+void progress_track_temp()
+{
+    char file_name_complete[20];
+    char* file_name = "sim_trace";
+    FILE *file = NULL;
+
+    if((timestep % time_interval_data) == 0)
+    {
+        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+
+        file = fopen(file_name_complete, "w");
+
+        if (file != NULL)
+        {
+            fprintf(file, "%s %s\n", "just printed", file_name_complete);
+        }
+        else
+        {
+            printf("could not open file %s", file_name_complete);
+        }
+
+        fclose(file);
     }
 
 }

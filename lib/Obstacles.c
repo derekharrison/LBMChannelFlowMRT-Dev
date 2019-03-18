@@ -30,7 +30,24 @@ void Obstacles()
     double circle_radius2       = 15.0;
 
     circle(x_coordinate_circle2, y_coordinate_circle2, circle_radius2);
-    //*/
+//
+//    double x_coordinate_circle3 = 18.5 * 30.0;
+//    double y_coordinate_circle3 = 0.55 * Ny;
+//    double circle_radius3       = 15.0;
+//
+//    circle(x_coordinate_circle3, y_coordinate_circle3, circle_radius3);
+//
+//    double x_coordinate_circle4 = 21.5 * 30.0;
+//    double y_coordinate_circle4 = 0.56 * Ny;
+//    double circle_radius4       = 10.0;
+//
+//    circle(x_coordinate_circle4, y_coordinate_circle4, circle_radius4);
+
+//    double x_coordinate_circle5 = 19 * 30.0;
+//    double y_coordinate_circle5 = 0.48 * Ny;
+//    double circle_radius5       = 13.0;
+//
+//    circle(x_coordinate_circle5, y_coordinate_circle5, circle_radius5);
 
 }
 

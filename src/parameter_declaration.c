@@ -18,14 +18,14 @@ void parameter_declaration()
     Nx                 = 1290;
     Ny                 = 1410;
     ti                 = 0.0;
-    timesteps          = 60000; //for 60000 timesteps the sim runs appr 9 hrs;
+    timesteps          = 5000;
     time_interval_vids = 100;
-    time_interval_data = 1000; //implementation needs modification
+    time_interval_data = 1000;
     min_timestep       = 0;
 
 
     /*Restart simulation by setting restart_sim to 1. Simulations can be restarted with data from previous simulation*/
-    restart_sim = 0;
+    restart_sim = 1;
 
 
     /*Lattice physical parameters*/
@@ -114,7 +114,7 @@ void parameter_declaration()
 
 
     /*number of obstacles present. The code crashes if n_particles is not equal to actual number of particles, even if standard force cal
-     *is used. Need to prevent this behavior.*/
+     *is used. Need to prevent this behaviour.*/
     n_particles = 2;
 
 
@@ -136,7 +136,7 @@ void parameter_declaration()
     /*File names for data export*/
     data_final_timestep = "data_final_timestep.txt";
     data_time_dependent = "data_time_dependent.txt";
-    parameters             = "parameters.txt";
+    parameters          = "parameters.txt";
     force_vec_results   = "force_vec_results.txt";
-    data_store            = "data_store_for_sim_cont.txt";
+    data_store          = "data_store_for_sim_cont.txt";
 }

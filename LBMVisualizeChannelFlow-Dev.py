@@ -15,7 +15,7 @@ start_time = time.time()
 
 print("--- %s seconds ---" % (time.time() - start_time))
 
-parameters = np.genfromtxt(r'parameter_file_MRT_long.txt', unpack=True)
+parameters = np.genfromtxt(r'parameters.txt', unpack=True)
 
 print(parameters)
 print(parameters[0])
@@ -35,7 +35,7 @@ print(nx)
 print(ny)
 
 
-x, y, fx, fy, vort_field = np.genfromtxt(r'DATAtimedepVonKarman_MRT_long.txt', unpack=True)
+x, y, fx, fy, vort_field = np.genfromtxt(r'data_time_dependent.txt', unpack=True)
 
 print('done reading')
 print(len(x))
@@ -56,7 +56,9 @@ print(Y.shape)
 print(U.shape)
 print(V.shape)
 
-plt.rcParams['animation.ffmpeg_path']='C:/ffmpeg/bin/ffmpeg.exe'
+#In order for the script to work ffmpeg needs to be downloaded. The .exe can be downloaded at https://www.ffmpeg.org/ 
+
+plt.rcParams['animation.ffmpeg_path']='C:/Users/d-w-h/Desktop/Home/Programs/ffmpeg-20190318-15d016b-win32-static/bin/ffmpeg.exe'
 writer=manimation.FFMpegWriter(bitrate=20000, fps=15)
 
 
@@ -132,6 +134,6 @@ anim = manimation.FuncAnimation(fig, animate, frames=timesteps-1, repeat=False)
 print("Done Animation, start saving")
 
 anim.save('Sim_Vid_test_Re100longMAIN.mp4',
-          writer=writer, dpi=200, bitrate=20000)
+          writer=writer, dpi=200)
     
 print("--- %s seconds ---" % (time.time() - start_time))

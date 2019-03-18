@@ -27,6 +27,27 @@ double*** Memory_alloc_3D(int Nx, int Ny, int Nz)
 }
 
 
+
+
+void Memory_dealloc_3D(int Nx, int Ny, double*** f)
+{
+    int i, j;
+
+    for(i = 0; i < Nx; ++i)
+    {
+        for(j = 0; j < Ny; ++j)
+            free(*(*(f + i) + j));
+    }
+
+    for(i = 0; i < Nx; ++i)
+    {
+        free(*(f + i));
+    }
+
+    free(f);
+}
+
+
 double** Memory_alloc_2D(int Nx, int Ny)
 {
     int i;
@@ -37,6 +58,17 @@ double** Memory_alloc_2D(int Nx, int Ny)
         *(f + i) = (double *) malloc(sizeof(double) * Ny);
 
     return f;
+}
+
+
+void Memory_dealloc_2D(int Nx, double** f)
+{
+    int i;
+
+    for(i = 0; i < Nx; ++i)
+        free(*(f + i));
+
+    free(f);
 }
 
 
@@ -53,6 +85,17 @@ int** Memory_alloc_2D_int(int Nx, int Ny)
 }
 
 
+void Memory_dealloc_2D_int(int Nx, int** f)
+{
+    int i;
+
+    for(i = 0; i < Nx; ++i)
+        free(*(f + i));
+
+    free(f);
+}
+
+
 b_location* Memory_alloc_1D_struct_array(int N_boundaries)
 {
     b_location *f = (b_location *) malloc(sizeof(b_location) * N_boundaries);
@@ -61,11 +104,23 @@ b_location* Memory_alloc_1D_struct_array(int N_boundaries)
 }
 
 
+void Memory_dealloc_1D_struct_array(b_location* f)
+{
+    free(f);
+}
+
+
 N_boundary_nodes* Memory_alloc_struct()
 {
     N_boundary_nodes *f = (N_boundary_nodes *) malloc(sizeof(N_boundary_nodes));
 
     return f;
+}
+
+
+void Memory_dealloc_struct(N_boundary_nodes* f)
+{
+    free(f);
 }
 
 
@@ -165,60 +220,8 @@ double* Memory_alloc_1D(int Nx)
 }
 
 
-void Memory_dealloc_3D(int Nx, int Ny, double*** f)
-{
-    int i, j;
-
-    for(i = 0; i < Nx; ++i)
-    {
-        for(j = 0; j < Ny; ++j)
-            free(*(*(f + i) + j));
-    }
-
-    for(i = 0; i < Nx; ++i)
-    {
-        free(*(f + i));
-    }
-
-    free(f);
-}
-
-
-void Memory_dealloc_2D(int Nx, double** f)
-{
-    int i;
-
-    for(i = 0; i < Nx; ++i)
-        free(*(f + i));
-
-    free(f);
-}
-
-
-void Memory_dealloc_2D_int(int Nx, int** f)
-{
-    int i;
-
-    for(i = 0; i < Nx; ++i)
-        free(*(f + i));
-
-    free(f);
-}
-
-
 void Memory_dealloc_1D(double* f)
 {
     free(f);
 }
 
-
-void Memory_dealloc_1D_struct_array(b_location* f)
-{
-    free(f);
-}
-
-
-void Memory_dealloc_struct(N_boundary_nodes* f)
-{
-    free(f);
-}

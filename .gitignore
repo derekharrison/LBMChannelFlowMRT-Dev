@@ -7,3 +7,6 @@ data_store_for_sim_cont.txt
 data_time_dependent.txt
 force_vec_results.txt
 parameters.txt
+sim_trace*
+*.mp4
+*.py
