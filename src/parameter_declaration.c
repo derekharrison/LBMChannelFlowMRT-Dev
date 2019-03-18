@@ -134,9 +134,9 @@ void parameter_declaration()
 
 
     /*File names for data export*/
-    data_final_timestep = "data_final_timestep.txt";
-    data_time_dependent = "data_time_dependent.txt";
-    parameters          = "parameters.txt";
-    force_vec_results   = "force_vec_results.txt";
-    data_store          = "data_store_for_sim_cont.txt";
+    data_final_timestep = "../SimData/data_final_timestep.txt";
+    data_time_dependent = "../SimData/data_time_dependent.txt";
+    parameters          = "../SimData/parameters.txt";
+    force_vec_results   = "../SimData/force_vec_results.txt";
+    data_store          = "../SimData/data_store_for_sim_cont.txt";
 }

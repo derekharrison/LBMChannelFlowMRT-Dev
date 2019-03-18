@@ -13,25 +13,29 @@
 
 void export_data_for_restart(FILE* data_store_for_restart)
 {
-    data_store_for_restart = fopen(data_store, "w");
 
-    if(data_store_for_restart != NULL)
+    if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        /*Export Ux, Uy, rho, fk and fprop data*/
-        write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
-        write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
-        write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
+        data_store_for_restart = fopen(data_store, "w");
 
-        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
-        write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
-    }
-    else
-    {
-        printf("could not open %s\n", data_store);
-        exit(10);
-    }
+        if(data_store_for_restart != NULL)
+        {
+            /*Export Ux, Uy, rho, fk and fprop data*/
+            write_2D_doubles(data_store_for_restart, Nx, Ny, Ux);
+            write_2D_doubles(data_store_for_restart, Nx, Ny, Uy);
+            write_2D_doubles(data_store_for_restart, Nx, Ny, rho);
 
-    fclose(data_store_for_restart);
+            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fk);
+            write_3D_doubles(data_store_for_restart, Nx, Ny, 9, fprop);
+        }
+        else
+        {
+            printf("could not open %s\n", data_store);
+            exit(10);
+        }
+
+        fclose(data_store_for_restart);
+    }
 
 }
 
@@ -327,12 +331,13 @@ void export_final_data(FILE* pfile)
 
 void progress_track_temp()
 {
-    char file_name_complete[20];
-    char* file_name = "sim_trace";
-    FILE *file = NULL;
 
     if((timestep % time_interval_data) == 0)
     {
+        char file_name_complete[35];
+        char* file_name = "../SimData/sim_trace";
+        FILE *file = NULL;
+
         sprintf(file_name_complete, "%s_%d", file_name, timestep);
 
         file = fopen(file_name_complete, "w");
