@@ -18,14 +18,14 @@ void parameter_declaration()
     Nx                 = 1290;
     Ny                 = 1410;
     ti                 = 0.0;
-    timesteps          = 1000;
+    timesteps          = 60000;
     time_interval_vids = 100;
     time_interval_data = 1000;
     min_timestep       = 0;
 
 
     /*Restart simulation by setting restart_sim to 1. Simulations can be restarted with data from previous simulation*/
-    restart_sim = 0;
+    restart_sim = 1;
 
 
     /*Lattice physical parameters*/
