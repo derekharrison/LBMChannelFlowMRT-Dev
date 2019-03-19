@@ -15,7 +15,7 @@ start_time = time.time()
 
 print("--- %s seconds ---" % (time.time() - start_time))
 
-parameters = np.genfromtxt(r'SimData/parameters.txt', unpack=True)
+parameters = np.genfromtxt(r'./SimData/parameters.txt', unpack=True)
 
 print(parameters)
 print(parameters[0])
@@ -44,7 +44,7 @@ plt.ylabel(r'y')
 
 def animate(i):
 
-    x, y, fx, fy, vort_field = np.genfromtxt(r'SimData/data_time_dependent_' + str(i*100) + '.txt', unpack=True)
+    x, y, fx, fy, vort_field = np.genfromtxt(r'./SimData/data_time_dependent_' + str(i*100) + '.txt', unpack=True)
 
     print("--- %s seconds ---" % (time.time() - start_time))
 
@@ -105,5 +105,5 @@ print("Done Animation, start saving")
 
 anim.save('Sim_Results.mp4',
           writer=writer, dpi=200)
-    
+
 print("--- %s seconds ---" % (time.time() - start_time))

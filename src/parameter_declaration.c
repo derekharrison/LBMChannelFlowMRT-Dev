@@ -18,14 +18,14 @@ void parameter_declaration()
     Nx                 = 1290;
     Ny                 = 1410;
     ti                 = 0.0;
-    timesteps          = 2000;
+    timesteps          = 60000;
     time_interval_vids = 100;
     time_interval_data = 1000;
     min_timestep       = 0;
 
 
     /*Restart simulation by setting restart_sim to 1. Simulations can be restarted with data from previous simulation*/
-    restart_sim = 1;
+    restart_sim = 0;
 
 
     /*Lattice physical parameters*/
@@ -134,9 +134,9 @@ void parameter_declaration()
 
 
     /*File names for data export*/
-    data_final_timestep = "../SimData/data_final_timestep.txt";
-    data_time_dependent = "../SimData/data_time_dependent.txt";
-    parameters          = "../SimData/parameters.txt";
-    force_vec_results   = "../SimData/force_vec_results.txt";
-    data_store          = "../SimData/data_store_for_sim_cont.txt";
+    data_final_timestep = "./SimData/data_final_timestep.txt";
+    data_time_dependent = "./SimData/data_time_dependent";
+    parameters          = "./SimData/parameters.txt";
+    force_vec_results   = "./SimData/force_vec_results";
+    data_store          = "./SimData/data_store_for_sim_cont.txt";
 }

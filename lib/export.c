@@ -14,7 +14,7 @@
 void export_data_for_restart(FILE* data_store_for_restart)
 {
 
-    if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
+    if(((timestep % time_interval_data) == 0) && (timestep >= min_timestep))
     {
         data_store_for_restart = fopen(data_store, "w");
 
@@ -70,24 +70,25 @@ void export_time_dep_data(FILE* datafile)
 
     if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        char file_name_complete[20];
+        char file_name_complete[50];
+        char* file_name_suffix = ".txt";
         char* file_name = data_time_dependent;
 
-        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+        sprintf(file_name_complete, "%s_%d%s", file_name, timestep, file_name_suffix);
 
         datafile = fopen(file_name_complete, "w");
 
         if(datafile != NULL)
         {
-        for(j = Ny - 1;j >= 0 ; --j)
-            for(i = 0;i < Nx; ++i)
-            {
-                fprintf(datafile,"%f    ", i*dx + 0.5*dx);
-                fprintf(datafile,"%f    ", j*dx + 0.5*dx);
-                fprintf(datafile,"%f    ", Ux[i][j]);
-                fprintf(datafile,"%f    ", Uy[i][j]);
-                fprintf(datafile,"%f\n", vort_field[i][j]);
-            }
+            for(j = Ny - 1;j >= 0 ; --j)
+                for(i = 0;i < Nx; ++i)
+                {
+                    fprintf(datafile,"%f    ", i*dx + 0.5*dx);
+                    fprintf(datafile,"%f    ", j*dx + 0.5*dx);
+                    fprintf(datafile,"%f    ", Ux[i][j]);
+                    fprintf(datafile,"%f    ", Uy[i][j]);
+                    fprintf(datafile,"%f\n", vort_field[i][j]);
+                }
         }
         else
         {
@@ -106,10 +107,11 @@ void export_time_dep_data_limited(FILE* datafile, int Nx_low, int Nx_high, int N
 
     if(((timestep % time_interval_vids) == 0) && (timestep >= min_timestep))
     {
-        char file_name_complete[20];
+        char file_name_complete[50];
+        char* file_name_suffix = ".txt";
         char* file_name = data_time_dependent;
 
-        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+        sprintf(file_name_complete, "%s_%d%s", file_name, timestep, file_name_suffix);
 
         datafile = fopen(file_name_complete, "w");
 
@@ -335,10 +337,11 @@ void progress_track_temp()
     if((timestep % time_interval_data) == 0)
     {
         char file_name_complete[35];
-        char* file_name = "../SimData/sim_trace";
+        char* file_name_suffix = ".txt";
+        char* file_name = "./SimData/sim_trace";
         FILE *file = NULL;
 
-        sprintf(file_name_complete, "%s_%d", file_name, timestep);
+        sprintf(file_name_complete, "%s_%d%s", file_name, timestep, file_name_suffix);
 
         file = fopen(file_name_complete, "w");
 

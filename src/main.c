@@ -63,6 +63,17 @@ int main(int argc, char* argv[])
     }
 
 
+    /*Exporting parameters*/
+    if(store_limited_time_dep_data)
+    {
+        export_parameters_limited(param_file);
+    }
+    else
+    {
+        export_parameters(param_file);
+    }
+
+
     /*Performing LBM calculations*/
     for(timestep = 0; timestep < timesteps; ++timestep)
     {
@@ -129,10 +140,6 @@ int main(int argc, char* argv[])
         /*Exporting data for simulation restart*/
         export_data_for_restart(data_store_for_restart);
 
-
-        /*Temporary mechanism for tracking simulation progress*/
-        progress_track_temp();
-
     }
 
 
@@ -148,17 +155,6 @@ int main(int argc, char* argv[])
     else
     {
         export_force_x_results(force_res);
-    }
-
-
-    /*Exporting parameters*/
-    if(store_limited_time_dep_data)
-    {
-        export_parameters_limited(param_file);
-    }
-    else
-    {
-        export_parameters(param_file);
     }
 
 
