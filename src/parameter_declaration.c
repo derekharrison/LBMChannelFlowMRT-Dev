@@ -25,7 +25,7 @@ void parameter_declaration()
 
 
     /*Restart simulation by setting restart_sim to 1. Simulations can be restarted with data from previous simulation*/
-    restart_sim = 1;
+    restart_sim = 0;
 
 
     /*Lattice physical parameters*/
@@ -79,7 +79,7 @@ void parameter_declaration()
 
 
     /*If inlet wetnode, max inlet velocity for inlet parabolic profile can be specified with u_inlet_max*/
-    u_inlet_max = 0.1666667;
+    u_inlet_max = 0.33333;
 
 
     /*Collision operator switch. 2 for MRT, 1 for TRT and else for BGK. Note, TRT seems unstable when wetnode boundaries are used.*/
@@ -115,7 +115,7 @@ void parameter_declaration()
 
     /*number of obstacles present. The code crashes if n_particles is not equal to actual number of particles, even if standard force cal
      *is used. Need to prevent this behaviour.*/
-    n_particles = 2;
+    n_particles = 5;
 
 
     /*Setting debug flags. Flags check conservation of stability and conservation of mass and momentum*/

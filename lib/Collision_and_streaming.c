@@ -167,7 +167,7 @@ void streaming_boundaries_wet_node_prescribed_inlet_vel()
     /*inlet_velocity time dependence*/
     for(j = 0; j < Ny; ++j)
     {
-        inlet_velocity[j] = inlet_velocity[j]*timestep/timesteps;
+        inlet_velocity[j] = u_inlet_max * 4 * (Ly_wet_node[j] / ((Ny - 1) * dx) - Ly_wet_node[j] * Ly_wet_node[j] / ((Ny - 1) * dx * (Ny - 1) * dx)) * timestep/timesteps;
     }
 
 

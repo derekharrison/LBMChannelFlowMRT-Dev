@@ -44,7 +44,7 @@ void Obstacles()
 
 
     double x_coordinate_circle5 = 22 * 30.0;
-    double y_coordinate_circle5 = 0.48 * Ny;
+    double y_coordinate_circle5 = 0.46 * Ny;
     double circle_radius5       = 13.0;
 
     circle(x_coordinate_circle5, y_coordinate_circle5, circle_radius5);
