@@ -79,7 +79,7 @@ void parameter_declaration()
 
 
     /*If inlet wetnode, max inlet velocity for inlet parabolic profile can be specified with u_inlet_max*/
-    u_inlet_max = 0.33333;
+    u_inlet_max = 0.26;
 
 
     /*Collision operator switch. 2 for MRT, 1 for TRT and else for BGK. Note, TRT seems unstable when wetnode boundaries are used.*/
