@@ -28,11 +28,10 @@ double determinant(double ** A, int n)
 
     if(n > 2)
     {
+        double ** M = mat2D(n - 1);
+
         for(int c = 0; c < n; ++c)
         {
-
-            double ** M = mat2D(n - 1);
-
             for(int i = 1; i < n; ++i)
             {
                 int j_m = 0;
@@ -50,10 +49,9 @@ double determinant(double ** A, int n)
             double fac = pow(-1, c + 2);
 
             det = det + A[0][c] * fac * determinant(M, n - 1);
-
-            free_mat2D(M, n - 1);
-
         }
+
+        free_mat2D(M, n - 1);
     }
 
     return det;
