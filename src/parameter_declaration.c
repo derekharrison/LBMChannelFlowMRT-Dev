@@ -83,11 +83,11 @@ void parameter_declaration()
 
 
     /*Collision operator switch. 2 for MRT, 1 for TRT and else for BGK. Note, TRT seems unstable when wetnode boundaries are used.*/
-    MRT_TRT_BGK_switch = 2;
+    MRT_TRT_BGK_switch = 1;
 
 
     /*Mapping MRT switch. 1 for Hermite approach, 0 for Gram-Schmidt*/
-    mapping_set_up_switch = 1;
+    mapping_set_up_switch = 0;
 
 
     /*Relaxation parameters BGK and TRT*/
