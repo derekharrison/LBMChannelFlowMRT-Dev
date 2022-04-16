@@ -7,6 +7,7 @@
 
 
 #include "../inc/matrix_operations.h"
+#include "../inc/memory_functions.h"
 #include "../inc/parameters.h"
 #include <stdlib.h>
 
@@ -71,7 +72,7 @@ void printing_mapping_matrix(double determinant_M, double **M, double **M_inv)
 
 void moment_transformation_set_up_gram_schmidt()
 {
-    int i, j, k, n;
+    int k, n;
 
     n = 9;
 
@@ -90,44 +91,13 @@ void moment_transformation_set_up_gram_schmidt()
         M[8][k] = (ck[k][0] * ck[k][1]);
     }
 
-
-    /*Calculating the determinant of M*/
-    determinant_M = Determinant(M, n);
-
-
-    /*If matrix is singular, exit*/
-    if(!determinant_M)
-    {
-        printf("\nTransformation matrix is singular\n");
-        exit(4);
-    }
-
-
-    /*Calculating co-factor M_adj of M*/
-    CoFactor(M, n, M_adj);
-
-
-    /*Transposing M_adj*/
-    Transpose(M_adj, n);
-
-
-    /*Calculating inverse of transformation matrix*/
-    for(i = 0; i < n; ++i)
-        for(j = 0; j < n; ++j)
-        {
-            M_inv[i][j] = 1.0 / determinant_M * M_adj[i][j];
-        }
-
-
-    /*Printing M, M_inv and determinant to screen for debugging*/
-    //printing_mapping_matrix(determinant_M, M, M_inv);
-
+    mat_inverse(M, n, M_inv);
 }
 
 
 void moment_transformation_set_up_hermite()
 {
-    int i, j, k, n;
+    int k, n;
 
     n = 9;
 
@@ -147,35 +117,6 @@ void moment_transformation_set_up_hermite()
     }
 
 
-    /*Calculating the determinant of M*/
-    determinant_M = Determinant(M, n);
-
-
-    /*If matrix is singular, exit*/
-    if(!determinant_M)
-    {
-        printf("\nTransformation matrix is singular\n");
-        exit(4);
-    }
-
-
-    /*Calculating co-factor M_adj of M*/
-    CoFactor(M, n, M_adj);
-
-
-    /*Transposing M_adj*/
-    Transpose(M_adj, n);
-
-
-    /*Calculating inverse of transformation matrix*/
-    for(i = 0; i < n; ++i)
-        for(j = 0; j < n; ++j)
-        {
-            M_inv[i][j] = 1.0 / determinant_M * M_adj[i][j];
-        }
-
-
-    /*Printing M, M_inv and determinant to screen for debugging*/
-    //printing_mapping_matrix(determinant_M, M, M_inv);
+    mat_inverse(M, n, M_inv);
 
 }

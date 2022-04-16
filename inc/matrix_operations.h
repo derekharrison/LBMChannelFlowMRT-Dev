@@ -8,10 +8,7 @@
 #ifndef MATRIX_OPERATIONS_H_
 #define MATRIX_OPERATIONS_H_
 
-
-double Determinant(double **a,int n);
-void CoFactor(double **a,int n,double **b);
-void Transpose(double **a,int n);
+void mat_inverse(double ** A, int n, double ** mat_inv);
 
 
 #endif /* MATRIX_OPERATIONS_H_ */

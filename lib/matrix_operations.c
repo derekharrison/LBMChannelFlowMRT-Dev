@@ -4,140 +4,113 @@
  *  Created on: 18 jun. 2017
  *      Author: dharrison
  *
- *      The functions used for computing the matrix inverse is originally written by Paul Bourke
- *      The code is obtained from the following URL:
- *      https://www.cs.rochester.edu/~brown/Crypto/assts/projects/adj.html
- *
- *      Eventually the following functions will be deprecated and replaced by self-written code
  */
 
 
+#include "../inc/memory_functions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-
-double Determinant(double **a, int n)
+double determinant(double ** A, int n)
 {
-   int i, j, j1, j2;
-   double det = 0;
-   double **m = NULL;
+    double det = 0;
 
-   if (n < 1)
-   {
-       exit(5);
-   }
-   else if (n == 1)
-   {
-       det = a[0][0];
-   }
-   else if (n == 2)
-   {
-       det = a[0][0] * a[1][1] - a[1][0] * a[0][1];
-   }
-   else
-   {
-       det = 0;
-       for (j1=0;j1<n;j1++)
-       {
-           m = malloc((n-1)*sizeof(double *));
-           for (i=0;i<n-1;i++)
-               m[i] = malloc((n-1)*sizeof(double));
+    if(n == 1) {
+        return A[0][0];
+    }
 
-           for (i=1;i<n;i++)
-           {
-               j2 = 0;
+    if(n == 2) {
+        return A[0][0] * A[1][1] - A[1][0] * A[0][1];
+    }
 
-               for (j=0;j<n;j++)
-               {
-                   if (j == j1)
-                       continue;
+    if(n > 2) {
+        for(int c = 0; c < n; ++c) {
 
-                   m[i-1][j2] = a[i][j];
-                   j2++;
-               }
-           }
+            double ** M = mat2D(n - 1);
 
-           det += pow(-1.0,j1+2.0) * a[0][j1] * Determinant(m,n-1);
+            for(int i = 1; i < n; ++i) {
+                int j_m = 0;
+                for(int j = 0; j < n; ++j) {
+                    if(j != c) {
+                        M[i - 1][j_m] = A[i][j];
+                        j_m++;
+                    }
 
-           for (i=0;i<n-1;i++)
-               free(m[i]);
-
-           free(m);
-      }
-   }
-
-   return(det);
-
-}
-
-
-/*Find the cofactor matrix of a square matrix*/
-void CoFactor(double **a, int n, double **b)
-{
-    int i,j,ii,jj,i1,j1;
-    double det;
-    double **c;
-
-    c = malloc((n-1)*sizeof(double *));
-    for (i=0;i<n-1;i++)
-        c[i] = malloc((n-1)*sizeof(double));
-
-   for (j=0;j<n;j++)
-   {
-       for (i=0;i<n;i++)
-       {
-           /* Form the adjoint a_ij */
-           i1 = 0;
-
-           for (ii=0;ii<n;ii++)
-           {
-               if (ii == i)
-                   continue;
-
-               j1 = 0;
-
-               for (jj=0;jj<n;jj++)
-               {
-                   if (jj == j)
-                       continue;
-
-                   c[i1][j1] = a[ii][jj];
-                   j1++;
                 }
-                i1++;
-           }
+            }
 
-           /* Calculate the determinate */
-           det = Determinant(c,n-1);
+            double fac = pow(-1, c + 2);
 
-           /* Fill in the elements of the cofactor */
-           b[i][j] = pow(-1.0,i+j+2.0) * det;
-      }
-   }
+            det = det + A[0][c] * fac * determinant(M, n - 1);
 
-   for (i=0;i<n-1;i++)
-       free(c[i]);
+            free_mat2D(M, n - 1);
 
-   free(c);
-
-}
-
-
-/*Transpose of a square matrix, do it in place*/
-void Transpose(double **a, int n)
-{
-    int i,j;
-    double tmp;
-
-    for (i=1;i<n;i++)
-    {
-        for (j=0;j<i;j++)
-        {
-            tmp = a[i][j];
-            a[i][j] = a[j][i];
-            a[j][i] = tmp;
         }
     }
 
+    return det;
+}
+
+
+double co_factor(double ** A, int n, int i, int j)
+{
+
+    double fac = 0;
+
+    double ** M = mat2D(n - 1);
+
+    int i_m = 0;
+    for(int r = 0; r < n; ++r) {
+        int j_m = 0;
+        if(r != i) {
+            for(int c = 0; c < n; ++c) {
+                if(c != j) {
+                    M[i_m][j_m] = A[r][c];
+                    j_m++;
+                }
+            }
+            i_m++;
+        }
+    }
+
+    fac = pow(-1, i + j + 2) * determinant(M, n - 1);
+
+    free_mat2D(M, n - 1);
+
+    return fac;
+}
+
+void adjoint_mat(double ** A, int n, double ** adj_mat)
+{
+
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j) {
+            adj_mat[i][j] = co_factor(A, n, i, j);
+        }
+    }
+}
+
+void mat_inverse(double ** A, int n, double ** mat_inv)
+{
+
+    double ** adj_mat = mat2D(n);
+
+    adjoint_mat(A, n, adj_mat);
+
+    double det = determinant(A, n);
+
+    if(det == 0)
+    {
+        printf("\nTransformation matrix is singular\n");
+        exit(4);
+    }
+
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < n; ++j) {
+            mat_inv[j][i] = 1.0 / det * adj_mat[i][j];
+        }
+    }
+
+    free_mat2D(adj_mat, n);
 }

@@ -10,6 +10,24 @@
 #include "../inc/types.h"
 
 
+double ** mat2D(int n) {
+
+    double ** mat = malloc(sizeof(double *) * n);
+
+    for(int i = 0; i < n; ++i)
+        mat[i] = malloc(sizeof(double) * n);
+
+    return mat;
+}
+
+void free_mat2D(double ** mat, int n) {
+
+    for(int i = 0; i < n; ++i)
+        free(mat[i]);
+
+    free(mat);
+}
+
 double*** Memory_alloc_3D(int Nx, int Ny, int Nz)
 {
     int i, j;

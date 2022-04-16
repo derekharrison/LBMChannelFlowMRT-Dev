@@ -15,6 +15,9 @@
 void parameter_declaration();
 void initialization();
 
+double ** mat2D(int n);
+void free_mat2D(double ** mat, int n);
+
 double*** Memory_alloc_3D(int Nx, int Ny, int Nz);
 double** Memory_alloc_2D(int Nx, int Ny);
 double* Memory_alloc_1D(int Nx);
