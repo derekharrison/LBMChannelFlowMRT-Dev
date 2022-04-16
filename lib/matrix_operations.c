@@ -16,23 +16,30 @@ double determinant(double ** A, int n)
 {
     double det = 0;
 
-    if(n == 1) {
+    if(n == 1)
+    {
         return A[0][0];
     }
 
-    if(n == 2) {
+    if(n == 2)
+    {
         return A[0][0] * A[1][1] - A[1][0] * A[0][1];
     }
 
-    if(n > 2) {
-        for(int c = 0; c < n; ++c) {
+    if(n > 2)
+    {
+        for(int c = 0; c < n; ++c)
+        {
 
             double ** M = mat2D(n - 1);
 
-            for(int i = 1; i < n; ++i) {
+            for(int i = 1; i < n; ++i)
+            {
                 int j_m = 0;
-                for(int j = 0; j < n; ++j) {
-                    if(j != c) {
+                for(int j = 0; j < n; ++j)
+                {
+                    if(j != c)
+                    {
                         M[i - 1][j_m] = A[i][j];
                         j_m++;
                     }
@@ -61,11 +68,15 @@ double co_factor(double ** A, int n, int i, int j)
     double ** M = mat2D(n - 1);
 
     int i_m = 0;
-    for(int r = 0; r < n; ++r) {
+    for(int r = 0; r < n; ++r)
+    {
         int j_m = 0;
-        if(r != i) {
-            for(int c = 0; c < n; ++c) {
-                if(c != j) {
+        if(r != i)
+        {
+            for(int c = 0; c < n; ++c)
+            {
+                if(c != j)
+                {
                     M[i_m][j_m] = A[r][c];
                     j_m++;
                 }
@@ -84,8 +95,10 @@ double co_factor(double ** A, int n, int i, int j)
 void adjoint_mat(double ** A, int n, double ** adj_mat)
 {
 
-    for(int i = 0; i < n; ++i) {
-        for(int j = 0; j < n; ++j) {
+    for(int i = 0; i < n; ++i)
+    {
+        for(int j = 0; j < n; ++j)
+        {
             adj_mat[i][j] = co_factor(A, n, i, j);
         }
     }
@@ -106,8 +119,10 @@ void mat_inverse(double ** A, int n, double ** mat_inv)
         exit(4);
     }
 
-    for(int i = 0; i < n; ++i) {
-        for(int j = 0; j < n; ++j) {
+    for(int i = 0; i < n; ++i)
+    {
+        for(int j = 0; j < n; ++j)
+        {
             mat_inv[j][i] = 1.0 / det * adj_mat[i][j];
         }
     }
